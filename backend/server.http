@@ -1,0 +1,76 @@
+POST http://localhost:8080/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "email": "test@email.com",
+  "password": "123"
+}
+
+### Login
+POST http://localhost:8080/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@email.com",
+  "password": "123"
+}
+
+### Categories
+GET http://localhost:8080/api/v1/categories
+
+### Category ID
+GET http://localhost:8080/api/v1/categories/small
+# GET http://localhost:8080/api/v1/categories/false
+
+### Delete Category ID
+DELETE http://localhost:8080/api/v1/categories/small
+
+### Products
+GET http://localhost:8080/api/v1/products
+
+### Product ID
+GET http://localhost:8080/api/v1/products/apple
+
+
+### Add Product
+POST http://localhost:8080/api/v1/products
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZjliMzMzZDQtODU1NC00MjQ5LTgzMjYtMTcxM2RkY2YxMmIwIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzc3OTI4OTExLCJpYXQiOjE3Nzc4NDI1MTF9.Kky3Fdu8dX86QQFLL-6fFNETpVLe7fz__yvIxE1sZR8
+
+{
+  "id": "digitaldruck",
+  "label": "Digitaldruck",
+  "description": "Description lol",
+  "price": 8.99,
+  "stock": 100,
+  "category_id": "digitaldruck",
+  "options": {
+    "product_type": "digitaldruck"
+  },
+  "old_price": 8.99
+}
+
+### Get Cart
+GET http://localhost:8080/api/v1/cart
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZjliMzMzZDQtODU1NC00MjQ5LTgzMjYtMTcxM2RkY2YxMmIwIiwicm9sZSI6InVzZXIiLCJleHAiOjE3Nzc3MTQ0MTcsImlhdCI6MTc3NzYyODAxN30.eGlfG8QsV512WZf0pc_YPc6ZXcEds1mjnyzG49QUf_s
+
+### Clear Cart
+DELETE http://localhost:8080/api/v1/cart/clear
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZjliMzMzZDQtODU1NC00MjQ5LTgzMjYtMTcxM2RkY2YxMmIwIiwicm9sZSI6InVzZXIiLCJleHAiOjE3Nzc3MTQ0MTcsImlhdCI6MTc3NzYyODAxN30.eGlfG8QsV512WZf0pc_YPc6ZXcEds1mjnyzG49QUf_s
+
+### Delete Cart Item
+DELETE http://localhost:8080/api/v1/cart/5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZjliMzMzZDQtODU1NC00MjQ5LTgzMjYtMTcxM2RkY2YxMmIwIiwicm9sZSI6InVzZXIiLCJleHAiOjE3Nzc3MTQ0MTcsImlhdCI6MTc3NzYyODAxN30.eGlfG8QsV512WZf0pc_YPc6ZXcEds1mjnyzG49QUf_s
+
+### Add Cart Item
+POST http://localhost:8080/api/v1/cart
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZjliMzMzZDQtODU1NC00MjQ5LTgzMjYtMTcxM2RkY2YxMmIwIiwicm9sZSI6InVzZXIiLCJleHAiOjE3Nzc3MTQ0MTcsImlhdCI6MTc3NzYyODAxN30.eGlfG8QsV512WZf0pc_YPc6ZXcEds1mjnyzG49QUf_s
+
+{
+  "product_id": "apple",
+  "amount": 1,
+  "metadata": {
+    "size": 3
+  }
+}
