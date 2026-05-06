@@ -2,12 +2,12 @@
 -- PostgreSQL database dump
 --
 
-\restrict j2wqsBxtGXlmBjEEmoEubcduezygEdBbiAxzLblhUCcz0GoEvx6QYBak3cvcsNI
+\restrict 9a5L96IIX89w98Tl9mCUfa2Jyd9soHPbxIXFsOqp60ooEkAt3hDRiq9ypauzAwx
 
 -- Dumped from database version 18.3
 -- Dumped by pg_dump version 18.3
 
--- Started on 2026-05-06 00:21:22
+-- Started on 2026-05-07 01:23:56
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -35,7 +35,8 @@ CREATE TABLE public.cart_items (
     user_id uuid NOT NULL,
     product_id text NOT NULL,
     amount integer,
-    metadata jsonb DEFAULT '{}'::jsonb NOT NULL
+    metadata jsonb DEFAULT '{}'::jsonb NOT NULL,
+    price numeric(10,2) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -58,7 +59,7 @@ CREATE SEQUENCE public.cart_items_id_seq
 ALTER SEQUENCE public.cart_items_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5045 (class 0 OID 0)
+-- TOC entry 5046 (class 0 OID 0)
 -- Dependencies: 222
 -- Name: cart_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -134,15 +135,17 @@ ALTER TABLE ONLY public.cart_items ALTER COLUMN id SET DEFAULT nextval('public.c
 
 
 --
--- TOC entry 5039 (class 0 OID 32919)
+-- TOC entry 5040 (class 0 OID 32919)
 -- Dependencies: 223
 -- Data for Name: cart_items; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.cart_items VALUES (19, '2a30148b-f515-46ab-9b06-facdc1a65ae4', 'aluverbundplatte-4mm-2550x1250', 2, '{"typ": "matt", "size": "", "color": "weiss", "zuschnitt": "without"}', 211.16);
+INSERT INTO public.cart_items VALUES (20, '2a30148b-f515-46ab-9b06-facdc1a65ae4', 'aluverbundplatte-4mm-2550x1250', 3, '{"typ": "glanz", "size": "25", "color": "schwarz", "zuschnitt": "without"}', 316.74);
 
 
 --
--- TOC entry 5037 (class 0 OID 32877)
+-- TOC entry 5038 (class 0 OID 32877)
 -- Dependencies: 221
 -- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -154,7 +157,7 @@ INSERT INTO public.categories VALUES ('digitaldruck', 'Digitaldruck');
 
 
 --
--- TOC entry 5036 (class 0 OID 32866)
+-- TOC entry 5037 (class 0 OID 32866)
 -- Dependencies: 220
 -- Data for Name: products; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -172,7 +175,7 @@ INSERT INTO public.products VALUES ('digitaldruck', 'Digitaldruck', 'Description
 
 
 --
--- TOC entry 5035 (class 0 OID 32853)
+-- TOC entry 5036 (class 0 OID 32853)
 -- Dependencies: 219
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -181,16 +184,16 @@ INSERT INTO public.users VALUES ('2a30148b-f515-46ab-9b06-facdc1a65ae4', 'test@g
 
 
 --
--- TOC entry 5046 (class 0 OID 0)
+-- TOC entry 5047 (class 0 OID 0)
 -- Dependencies: 222
 -- Name: cart_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.cart_items_id_seq', 7, true);
+SELECT pg_catalog.setval('public.cart_items_id_seq', 20, true);
 
 
 --
--- TOC entry 4885 (class 2606 OID 32929)
+-- TOC entry 4886 (class 2606 OID 32929)
 -- Name: cart_items cart_items_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -199,7 +202,7 @@ ALTER TABLE ONLY public.cart_items
 
 
 --
--- TOC entry 4883 (class 2606 OID 32885)
+-- TOC entry 4884 (class 2606 OID 32885)
 -- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -208,7 +211,7 @@ ALTER TABLE ONLY public.categories
 
 
 --
--- TOC entry 4881 (class 2606 OID 32876)
+-- TOC entry 4882 (class 2606 OID 32876)
 -- Name: products products_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -217,7 +220,7 @@ ALTER TABLE ONLY public.products
 
 
 --
--- TOC entry 4877 (class 2606 OID 32865)
+-- TOC entry 4878 (class 2606 OID 32865)
 -- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -226,7 +229,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 4879 (class 2606 OID 32863)
+-- TOC entry 4880 (class 2606 OID 32863)
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -235,7 +238,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 4886 (class 2606 OID 32935)
+-- TOC entry 4887 (class 2606 OID 32935)
 -- Name: cart_items fk_cart_product; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -244,7 +247,7 @@ ALTER TABLE ONLY public.cart_items
 
 
 --
--- TOC entry 4887 (class 2606 OID 32930)
+-- TOC entry 4888 (class 2606 OID 32930)
 -- Name: cart_items fk_cart_user; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -252,11 +255,11 @@ ALTER TABLE ONLY public.cart_items
     ADD CONSTRAINT fk_cart_user FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
--- Completed on 2026-05-06 00:21:22
+-- Completed on 2026-05-07 01:23:56
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict j2wqsBxtGXlmBjEEmoEubcduezygEdBbiAxzLblhUCcz0GoEvx6QYBak3cvcsNI
+\unrestrict 9a5L96IIX89w98Tl9mCUfa2Jyd9soHPbxIXFsOqp60ooEkAt3hDRiq9ypauzAwx
 

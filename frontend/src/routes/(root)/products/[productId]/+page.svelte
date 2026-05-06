@@ -3,12 +3,22 @@
 
 	let productAmount = $state(1);
 	let productPrice = $derived(
-		data.product?.price * productAmount + (zuschnittState === "with" ? 5.95 : 0)
+		data.product?.price * productAmount + (zuschnittState === "with" ? productAmount * 5.95 : 0)
 	);
 	let zuschnittState = $state("without");
 	let typState = $state("matt");
 	let colorState = $state("weiss");
 	let sizeState = $state("");
+	let resultText = $state("");
+
+	$effect(() => {
+		if (resultText) {
+			const timeout = setTimeout(() => {
+				resultText = "";
+			}, 3000);
+			return () => clearTimeout(timeout);
+		}
+	});
 
 	function updateProductAmount(action) {
 		if (action === "decrease") {
@@ -21,7 +31,7 @@
 		}
 	}
 
-	function addToCart() {
+	async function addToCart() {
 		const cartProduct = {
 			id: data.product.id,
 			price: productPrice,
@@ -34,7 +44,19 @@
 			amount: productAmount
 		};
 
-		console.log(cartProduct);
+		const res = await fetch("/api/cart", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(cartProduct)
+		});
+		const result = await res.json();
+		if (result.success) {
+			resultText = "Produkt erfolgreich zum Warenkorb hinzugefügt!";
+		} else {
+			resultText = "Fehler beim Hinzufügen des Produkts zum Warenkorb.";
+		}
 	}
 </script>
 
@@ -146,6 +168,9 @@
 						<button onclick={() => updateProductAmount("increase")}>+</button>
 					</div>
 					<button class="button" onclick={addToCart}>In den Warenkorb</button>
+					{#if resultText}
+						<p>{resultText}</p>
+					{/if}
 				</div>
 			</div>
 			<div class="product-bottom"></div>

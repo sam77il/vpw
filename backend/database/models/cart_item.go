@@ -8,4 +8,5 @@ type CartItem struct {
 	ProductId string `json:"product_id"`
 	Amount    int    `json:"amount"`
 	Metadata  json.RawMessage `json:"metadata"`
+	Price		 float64 `json:"price"`
 }

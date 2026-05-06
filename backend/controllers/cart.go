@@ -10,23 +10,60 @@ import (
 func GetCartItems(ctx *sugar.SugarContext) {
 	userId := ctx.Request.GoCtx.Value("userId").(string)
 
-	rows, err := ctx.Database.Query(ctx.Request.GoCtx, "SELECT id, product_id, amount, metadata FROM cart_items WHERE user_id = $1", userId)
+	query := `
+		SELECT
+			ci.id,
+			ci.product_id,
+			p.label,
+			ci.amount,
+			ci.metadata,
+			ci.price
+		FROM cart_items ci
+		JOIN products p ON p.id = ci.product_id
+		WHERE ci.user_id = $1
+	`
+
+	rows, err := ctx.Database.Query(ctx.Request.GoCtx, query, userId)
 	if err != nil {
-		ctx.Response.Status(500).JSON(map[string]any{"success": false, "message": "internal database error"})
+		fmt.Println(err)
+		ctx.Response.Status(500).JSON(map[string]any{
+			"success": false,
+			"message": "internal database error",
+		})
 		return
 	}
 	defer rows.Close()
-	var cartItems []models.CartItem
+	type CartItemWithLabel struct {
+			models.CartItem
+			Label string `json:"label"`
+		}
+	var cartItems []CartItemWithLabel
+
 	for rows.Next() {
-		var ci models.CartItem
+		var ci CartItemWithLabel
 		var metadata []byte
-		err := rows.Scan(&ci.Id, &ci.ProductId, &ci.Amount, &metadata)
+
+		err := rows.Scan(
+			&ci.Id,
+			&ci.ProductId,
+			&ci.Label,
+			&ci.Amount,
+			&metadata,
+			&ci.Price,
+		)
+
 		if err != nil {
 			fmt.Println(err)
-			ctx.Response.Status(500).JSON(map[string]any{"success": false, "message": "internal scan error"})
+
+			ctx.Response.Status(500).JSON(map[string]any{
+				"success": false,
+				"message": "internal scan error",
+			})
 			return
 		}
+
 		ci.UserId = userId
+
 		if metadata == nil {
 			ci.Metadata = json.RawMessage("{}")
 		} else {
@@ -36,7 +73,18 @@ func GetCartItems(ctx *sugar.SugarContext) {
 		cartItems = append(cartItems, ci)
 	}
 
-	ctx.Response.Status(200).JSON(map[string]any{"success": true, "cart_items": cartItems})
+	if err := rows.Err(); err != nil {
+		ctx.Response.Status(500).JSON(map[string]any{
+			"success": false,
+			"message": "row iteration error",
+		})
+		return
+	}
+
+	ctx.Response.Status(200).JSON(map[string]any{
+		"success":   true,
+		"cart_items": cartItems,
+	})
 }
 
 func ClearCartItems(ctx *sugar.SugarContext) {
@@ -89,9 +137,8 @@ func AddCartItem(ctx *sugar.SugarContext) {
 		cartItem.Metadata = json.RawMessage("{}")
 	}
 
-	_, err := ctx.Database.Exec(ctx.Request.GoCtx, "INSERT INTO cart_items (user_id, product_id, amount, metadata) VALUES ($1, $2, $3, $4)", userId, cartItem.ProductId, cartItem.Amount, cartItem.Metadata)
+	_, err := ctx.Database.Exec(ctx.Request.GoCtx, "INSERT INTO cart_items (user_id, product_id, amount, metadata, price) VALUES ($1, $2, $3, $4, $5)", userId, cartItem.ProductId, cartItem.Amount, cartItem.Metadata, cartItem.Price)
 	if err != nil {
-		fmt.Println(err)
 		ctx.Response.Status(500).JSON(map[string]any{"success": false, "message": "internal database error"})
 		return
 	}
