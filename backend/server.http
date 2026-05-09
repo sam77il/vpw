@@ -74,3 +74,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZjliM
     "size": 3
   }
 }
+###
+PUT http://localhost:8080/api/v1/users/34dd6f2d-a7ad-4d09-b34b-8312c431d852
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMmEzMDE0OGItZjUxNS00NmFiLTliMDYtZmFjZGMxYTY1YWU0Iiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzc4MzU4NDI3LCJpYXQiOjE3NzgyNzIwMjd9.K2kmNWV5z5fNNHgVxq7eiyaMQ0fxcCF2jotDPXQgy7U
+
+{
+  "a": true
+}

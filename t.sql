@@ -2,12 +2,12 @@
 -- PostgreSQL database dump
 --
 
-\restrict 9a5L96IIX89w98Tl9mCUfa2Jyd9soHPbxIXFsOqp60ooEkAt3hDRiq9ypauzAwx
+\restrict l3W2unp9hu1s34MNdoXBaXDrrWLMJayMlBbI2wogea7pK3JNBRBf4DBqatfBpmL
 
 -- Dumped from database version 18.3
 -- Dumped by pg_dump version 18.3
 
--- Started on 2026-05-07 01:23:56
+-- Started on 2026-05-09 21:47:28
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -109,7 +109,7 @@ CREATE TABLE public.users (
     email text NOT NULL,
     password text NOT NULL,
     role text DEFAULT 'user'::text,
-    created_at timestamp without time zone DEFAULT now(),
+    created_at timestamp with time zone DEFAULT now(),
     gender text,
     first_name text,
     last_name text,
@@ -140,8 +140,7 @@ ALTER TABLE ONLY public.cart_items ALTER COLUMN id SET DEFAULT nextval('public.c
 -- Data for Name: cart_items; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.cart_items VALUES (19, '2a30148b-f515-46ab-9b06-facdc1a65ae4', 'aluverbundplatte-4mm-2550x1250', 2, '{"typ": "matt", "size": "", "color": "weiss", "zuschnitt": "without"}', 211.16);
-INSERT INTO public.cart_items VALUES (20, '2a30148b-f515-46ab-9b06-facdc1a65ae4', 'aluverbundplatte-4mm-2550x1250', 3, '{"typ": "glanz", "size": "25", "color": "schwarz", "zuschnitt": "without"}', 316.74);
+INSERT INTO public.cart_items VALUES (21, '2a30148b-f515-46ab-9b06-facdc1a65ae4', 'aluverbundplatte-4mm-3050x1000', 4, '{"typ": "glanz", "size": "ewrsrfersdfsfdfgfsf", "color": "weiss", "zuschnitt": "with"}', 428.84);
 
 
 --
@@ -150,10 +149,10 @@ INSERT INTO public.cart_items VALUES (20, '2a30148b-f515-46ab-9b06-facdc1a65ae4'
 -- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.categories VALUES ('aluverbundplatten2mm', 'Aluverbundplatten 2mm');
 INSERT INTO public.categories VALUES ('aluverbundplatten3mm', 'Aluverbundplatten 3mm');
 INSERT INTO public.categories VALUES ('aluverbundplatten4mm', 'Aluverbundplatten 4mm');
 INSERT INTO public.categories VALUES ('digitaldruck', 'Digitaldruck');
+INSERT INTO public.categories VALUES ('aluverbundplatten2mm', 'Aluverbundplatten 2mm');
 
 
 --
@@ -172,6 +171,7 @@ INSERT INTO public.products VALUES ('aluverbundplatte-4mm-3050x1000', 'Aluverbun
 INSERT INTO public.products VALUES ('aluverbundplatte-4mm-2550x1250', 'Aluverbundplatte 4mm 2550x1250mm', 'Description lol', 105.58, 100, 'aluverbundplatten4mm', '{"product_type": "aluverbundplatte"}', 105.58);
 INSERT INTO public.products VALUES ('aluverbundplatte-4mm-3050x1500', 'Aluverbundplatte 4mm 3050x1500mm', 'Description lol', 151.89, 100, 'aluverbundplatten4mm', '{"product_type": "aluverbundplatte"}', 151.89);
 INSERT INTO public.products VALUES ('digitaldruck', 'Digitaldruck', 'Description lol', 8.99, 100, 'digitaldruck', '{"product_type": "digitaldruck"}', 8.99);
+INSERT INTO public.products VALUES ('d', 'Test123', 's', 119.74, 2, 'andere', '{}', 119.74);
 
 
 --
@@ -180,7 +180,7 @@ INSERT INTO public.products VALUES ('digitaldruck', 'Digitaldruck', 'Description
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.users VALUES ('2a30148b-f515-46ab-9b06-facdc1a65ae4', 'test@gmail.com', '$2a$10$MoBRijB.dDK3wanA3g8pQOPAzjcFxf2Uy4rwW5ixfrZaCxt1d6QDK', 'user', '2026-05-05 18:56:44.359072', 'male', 'Max', 'Mustermann', 'Musterstraße 15A', '55555', 'Musterstadt', 'DE', '0176176176', true, 'Sugarweb GmbH', 'DE123123');
+INSERT INTO public.users VALUES ('2a30148b-f515-46ab-9b06-facdc1a65ae4', 'test@gmail.com', '$2a$10$MoBRijB.dDK3wanA3g8pQOPAzjcFxf2Uy4rwW5ixfrZaCxt1d6QDK', 'admin', '2026-05-05 18:56:44.359072+02', 'male', 'Samil', 'Mustermann', 'Musterstraße 15A', '2', 'Musterstadt', 'DE', '0176176176', true, 'Sugarweb GmbH', 'DE123123');
 
 
 --
@@ -189,7 +189,7 @@ INSERT INTO public.users VALUES ('2a30148b-f515-46ab-9b06-facdc1a65ae4', 'test@g
 -- Name: cart_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.cart_items_id_seq', 20, true);
+SELECT pg_catalog.setval('public.cart_items_id_seq', 21, true);
 
 
 --
@@ -255,11 +255,11 @@ ALTER TABLE ONLY public.cart_items
     ADD CONSTRAINT fk_cart_user FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
--- Completed on 2026-05-07 01:23:56
+-- Completed on 2026-05-09 21:47:29
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 9a5L96IIX89w98Tl9mCUfa2Jyd9soHPbxIXFsOqp60ooEkAt3hDRiq9ypauzAwx
+\unrestrict l3W2unp9hu1s34MNdoXBaXDrrWLMJayMlBbI2wogea7pK3JNBRBf4DBqatfBpmL
 

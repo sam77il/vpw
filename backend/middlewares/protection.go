@@ -10,14 +10,14 @@ import (
 
 func RoutesProtection(ctx *sugar.SugarContext, next func()) {
 	fmt.Println(ctx.Request.URL, ctx.Request.Method)
+	jwtToken := strings.TrimPrefix(ctx.Request.Header.Get("Authorization"), "Bearer ")
+	claims, err := controllers.ValidateJsonWebToken(jwtToken)
+	
 	if ctx.Request.URL == "/api/v1/categories" && ctx.Request.Method == "POST" {
-		jwtToken := strings.TrimPrefix(ctx.Request.Header.Get("Authorization"), "Bearer ")
-		claims, err := controllers.ValidateJsonWebToken(jwtToken)
 		if err != nil {
 			ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 			return
 		}
-
 		if claims.Role == "admin" {
 			next()
 			return
@@ -25,13 +25,10 @@ func RoutesProtection(ctx *sugar.SugarContext, next func()) {
 		ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 		return
 	} else if strings.HasPrefix(ctx.Request.URL, "/api/v1/categories/") && ctx.Request.Method == "DELETE" {
-		jwtToken := strings.TrimPrefix(ctx.Request.Header.Get("Authorization"), "Bearer ")
-		claims, err := controllers.ValidateJsonWebToken(jwtToken)
 		if err != nil {
 			ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 			return
 		}
-
 		if claims.Role == "admin" {
 			next()
 			return
@@ -39,13 +36,10 @@ func RoutesProtection(ctx *sugar.SugarContext, next func()) {
 		ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 		return
 	} else if strings.HasPrefix(ctx.Request.URL, "/api/v1/categories/") && ctx.Request.Method == "PATCH" {
-		jwtToken := strings.TrimPrefix(ctx.Request.Header.Get("Authorization"), "Bearer ")
-		claims, err := controllers.ValidateJsonWebToken(jwtToken)
 		if err != nil {
 			ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 			return
 		}
-
 		if claims.Role == "admin" {
 			next()
 			return
@@ -53,13 +47,10 @@ func RoutesProtection(ctx *sugar.SugarContext, next func()) {
 		ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 		return
 	} else if ctx.Request.URL == "/api/v1/categories" && ctx.Request.Method == "POST" {
-		jwtToken := strings.TrimPrefix(ctx.Request.Header.Get("Authorization"), "Bearer ")
-		claims, err := controllers.ValidateJsonWebToken(jwtToken)
 		if err != nil {
 			ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 			return
 		}
-		
 		if claims.Role == "admin" {
 			next()
 			return
@@ -67,13 +58,10 @@ func RoutesProtection(ctx *sugar.SugarContext, next func()) {
 		ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 		return
 	} else if ctx.Request.URL == "/api/v1/products" && ctx.Request.Method == "POST" {
-		jwtToken := strings.TrimPrefix(ctx.Request.Header.Get("Authorization"), "Bearer ")
-		claims, err := controllers.ValidateJsonWebToken(jwtToken)
 		if err != nil {
 			ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 			return
 		}
-
 		if claims.Role == "admin" {
 			next()
 			return
@@ -81,13 +69,10 @@ func RoutesProtection(ctx *sugar.SugarContext, next func()) {
 		ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 		return
 	} else if strings.HasPrefix(ctx.Request.URL, "/api/v1/products/") && ctx.Request.Method == "DELETE" {
-		jwtToken := strings.TrimPrefix(ctx.Request.Header.Get("Authorization"), "Bearer ")
-		claims, err := controllers.ValidateJsonWebToken(jwtToken)
 		if err != nil {
 			ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 			return
 		}
-
 		if claims.Role == "admin" {
 			next()
 			return
@@ -95,13 +80,10 @@ func RoutesProtection(ctx *sugar.SugarContext, next func()) {
 		ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 		return
 	} else if strings.HasPrefix(ctx.Request.URL, "/api/v1/products/") && ctx.Request.Method == "PATCH" {
-		jwtToken := strings.TrimPrefix(ctx.Request.Header.Get("Authorization"), "Bearer ")
-		claims, err := controllers.ValidateJsonWebToken(jwtToken)
 		if err != nil {
 			ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 			return
 		}
-
 		if claims.Role == "admin" {
 			next()
 			return
@@ -109,13 +91,10 @@ func RoutesProtection(ctx *sugar.SugarContext, next func()) {
 		ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 		return
 	} else if ctx.Request.URL == "/api/v1/products" && ctx.Request.Method == "POST" {
-		jwtToken := strings.TrimPrefix(ctx.Request.Header.Get("Authorization"), "Bearer ")
-		claims, err := controllers.ValidateJsonWebToken(jwtToken)
 		if err != nil {
 			ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 			return
 		}
-		
 		if claims.Role == "admin" {
 			next()
 			return
@@ -123,10 +102,8 @@ func RoutesProtection(ctx *sugar.SugarContext, next func()) {
 		ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 		return
 	} else if ctx.Request.URL == "/api/v1/cart" && ctx.Request.Method == "GET" {
-		jwtToken := strings.TrimPrefix(ctx.Request.Header.Get("Authorization"), "Bearer ")
-		claims, err := controllers.ValidateJsonWebToken(jwtToken)
 		if err != nil {
-			ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "not logged in"})
+			ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 			return
 		}
 		if claims.UserID != "" {
@@ -136,10 +113,8 @@ func RoutesProtection(ctx *sugar.SugarContext, next func()) {
 		}
 		ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "not logged in"})
 	} else if ctx.Request.URL == "/api/v1/cart/clear" && ctx.Request.Method == "DELETE" {
-		jwtToken := strings.TrimPrefix(ctx.Request.Header.Get("Authorization"), "Bearer ")
-		claims, err := controllers.ValidateJsonWebToken(jwtToken)
 		if err != nil {
-			ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "not logged in"})
+			ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 			return
 		}
 		if claims.UserID != "" {
@@ -149,10 +124,8 @@ func RoutesProtection(ctx *sugar.SugarContext, next func()) {
 		}
 		ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "not logged in"})
 	} else if strings.HasPrefix(ctx.Request.URL, "/api/v1/cart/") && ctx.Request.Method == "DELETE" {
-		jwtToken := strings.TrimPrefix(ctx.Request.Header.Get("Authorization"), "Bearer ")
-		claims, err := controllers.ValidateJsonWebToken(jwtToken)
 		if err != nil {
-			ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "not logged in"})
+			ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 			return
 		}
 		if claims.UserID != "" {
@@ -162,10 +135,8 @@ func RoutesProtection(ctx *sugar.SugarContext, next func()) {
 		}
 		ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "not logged in"})
 	} else if ctx.Request.URL == "/api/v1/cart" && ctx.Request.Method == "POST" {
-		jwtToken := strings.TrimPrefix(ctx.Request.Header.Get("Authorization"), "Bearer ")
-		claims, err := controllers.ValidateJsonWebToken(jwtToken)
 		if err != nil {
-			ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "not logged in"})
+			ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 			return
 		}
 		if claims.UserID != "" {
@@ -174,6 +145,17 @@ func RoutesProtection(ctx *sugar.SugarContext, next func()) {
 			return
 		}
 		ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "not logged in"})
+	} else if strings.HasPrefix(ctx.Request.URL, "/api/v1/users") {
+		if err != nil {
+			ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
+			return
+		}
+		if claims.Role == "admin" {
+			next()
+			return
+		}
+			
+		ctx.Response.Status(401).JSON(map[string]any{"success": false, "message": "unauthorized"})
 	}
 	next()
 }

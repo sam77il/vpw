@@ -110,11 +110,26 @@ func EditCategory(ctx *sugar.SugarContext) {
 		return
 	}
 
-	_, err = ctx.Database.Exec(ctx.Request.GoCtx, "UPDATE categories SET id = $1, label = $2 WHERE id = $3", newCategory.Id, newCategory.Label, categoryId)
+	cmd, err := ctx.Database.Exec(ctx.Request.GoCtx, "UPDATE categories SET id = $1, label = $2 WHERE id = $3", newCategory.Id, newCategory.Label, categoryId)
 	if err != nil {
 		ctx.Response.Status(500).JSON(map[string]any{"success": false, "message": "internal database error"})
 		return
 	}
 
-	ctx.Response.Status(200).JSON(map[string]any{"success": false})
+	if cmd.RowsAffected() == 0 {
+		ctx.Response.Status(404).JSON(map[string]any{"success": false, "message": "category not found"})
+	}
+	ctx.Response.Status(200).JSON(map[string]any{"success": true})
+}
+
+func CategoryById(ctx *sugar.SugarContext) {
+	id := ctx.Request.Params["id"]
+	var category models.Category
+	err := ctx.Database.QueryRow(ctx.Request.GoCtx, "SELECT id, label FROM categories WHERE id = $1", id).Scan(&category.Id, &category.Label)
+	if err != nil {
+		ctx.Response.Status(500).JSON(map[string]any{"success": false, "message": "internal database error"})
+		return
+	}
+
+	ctx.Response.Status(200).JSON(map[string]any{"success": true, "category": category})
 }

@@ -14,7 +14,7 @@ export const actions = {
 			})
 		});
 		const answer = await res.json();
-
+		console.log(answer);
 		if (answer.success) {
 			cookies.set("auth", answer.token, {
 				httpOnly: true,

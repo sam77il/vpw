@@ -1,9 +1,21 @@
 <script>
 	import { enhance } from "$app/forms";
-	import { AtSign, Key, ShoppingBag, Truck, User } from "@lucide/svelte";
+	import { goto } from "$app/navigation";
+	import { AtSign, Key, LogOut, ShoppingBag, Truck, User } from "@lucide/svelte";
+	import { resolve } from "$app/paths";
 
 	const { data, form } = $props();
 	let currentPage = $state("personal");
+
+	async function logOut() {
+		const res = await fetch("/api/auth/logout", {
+			method: "POST"
+		});
+
+		if (res.ok) {
+			goto(resolve("/"));
+		}
+	}
 </script>
 
 <div class="settings">
@@ -42,6 +54,11 @@
 						>
 					</nav>
 				{/if}
+				<nav class="settings-content-nav">
+					<button style="color: white; background-color: #ff4d4d;" onclick={() => logOut()}
+						><LogOut size={20} /><span>Ausloggen</span></button
+					>
+				</nav>
 			</div>
 			{#if currentPage === "personal"}
 				<div class="settings-content-page">

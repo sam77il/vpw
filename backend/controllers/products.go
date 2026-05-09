@@ -37,7 +37,7 @@ func Products(ctx *sugar.SugarContext) {
 	}
 
 	if len(products) > 0 {
-		ctx.Response.Status(200).JSON(map[string]any{"success": true, "categories": products})
+		ctx.Response.Status(200).JSON(map[string]any{"success": true, "products": products})
 		return
 	}
 	ctx.Response.Status(404).JSON(map[string]any{"success": false, "message": "no products found"})
@@ -102,6 +102,7 @@ func EditProduct(ctx *sugar.SugarContext) {
 	var newProduct models.Product
 	err := json.Unmarshal(ctx.Request.Body, &newProduct)
 	if err != nil {
+		fmt.Println(err)
 		ctx.Response.Status(500).JSON(map[string]any{"success": false, "message": "internal server error"})
 		return
 	}
@@ -112,5 +113,5 @@ func EditProduct(ctx *sugar.SugarContext) {
 		return
 	}
 
-	ctx.Response.Status(200).JSON(map[string]any{"success": false})
+	ctx.Response.Status(200).JSON(map[string]any{"success": true})
 }

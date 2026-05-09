@@ -1,6 +1,6 @@
 <script>
 	import { resolve } from "$app/paths";
-	import { ShoppingCart, Star, User } from "@lucide/svelte";
+	import { ShoppingCart, Star, User, UserStar } from "@lucide/svelte";
 
 	const { user, categories } = $props();
 </script>
@@ -18,6 +18,9 @@
 			</nav>
 		</div>
 		<div class="header-right">
+			{#if user?.role === "admin"}
+				<a href={resolve(user?.role === "admin" && "/admin")}><UserStar /><span>Admin</span></a>
+			{/if}
 			<a href={resolve(user ? `/account` : "/login")}><User /><span>Mein Konto</span></a>
 			<a href={resolve("/favorites")}><Star /><span>Favoriten</span></a>
 			<a href={resolve("/cart")}><ShoppingCart /><span>Warenkorb</span></a>

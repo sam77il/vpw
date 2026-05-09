@@ -19,6 +19,12 @@ func main() {
 		Host: "localhost:8080",
 		Timeout: 15 * time.Second,
 		Database: pool,
+		// Cors: sugar.CorsSettings{
+		// 	Enabled: true,
+		// 	Origins: []string{"http://localhost:5173"},
+		// 	Methods: []string{"GET", "POST", "PUT", "PATCH", "DELETE"},
+
+		// },
 	})
 
 	server.Middleware("/api/*", middlewares.RoutesProtection)
@@ -33,21 +39,28 @@ func main() {
 
 	server.Get("/api/v1/categories", controllers.Categories)
 	server.Get("/api/v1/categories/:id", controllers.CategoriesById)
+	server.Get("/api/v1/categories/data/:id", controllers.CategoryById)
 	server.Post("/api/v1/categories", controllers.AddCategory)
 	server.Delete("/api/v1/categories/:id", controllers.DeleteCategory)
-	server.Patch("/api/v1/categories/:id", controllers.EditCategory)
+	server.Put("/api/v1/categories/:id", controllers.EditCategory)
 
 	server.Get("/api/v1/products", controllers.Products)
 	server.Get("/api/v1/products/:id", controllers.ProductById)
 	server.Post("/api/v1/products", controllers.AddProduct)
 	server.Delete("/api/v1/products/:id", controllers.DeleteProduct)
-	server.Patch("/api/v1/products/:id", controllers.EditProduct)
+	server.Put("/api/v1/products/:id", controllers.EditProduct)
 
 	// Cart
 	server.Get("/api/v1/cart", controllers.GetCartItems)
 	server.Delete("/api/v1/cart/clear", controllers.ClearCartItems)
 	server.Delete("/api/v1/cart/:id", controllers.DeleteCartItem)
 	server.Post("/api/v1/cart", controllers.AddCartItem)
+
+	// Users
+	server.Get("/api/v1/users", controllers.GetUsers)
+	server.Get("/api/v1/users/:id", controllers.GetUserById)
+	server.Put("/api/v1/users/:id", controllers.UpdateUserById)
+	server.Delete("/api/v1/users/:id", controllers.DeleteUserById)
 	
 	server.Listen()
 }
