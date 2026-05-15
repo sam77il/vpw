@@ -47,7 +47,9 @@
 			<h2>Warenkorb</h2>
 		</header>
 
-		{#if data.cart_items.length === 0}
+		{#if data.message}
+			<p class="cart-message">{data.message}</p>
+		{:else if data.cart_items.length === 0}
 			<p>Dein Warenkorb ist leer.</p>
 		{:else}
 			<div class="cart-list">

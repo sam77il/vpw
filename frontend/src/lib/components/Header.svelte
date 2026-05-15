@@ -70,7 +70,7 @@
 				</a>
 				<a href={resolve("/favorites")} onclick={closeMobileMenu}>
 					<Star size={18} />
-					<span>Favoriten</span>
+					<span>Favoriten (SOON)</span>
 				</a>
 				<a href={resolve("/cart")} onclick={closeMobileMenu}>
 					<ShoppingCart size={18} />
