@@ -259,23 +259,53 @@
 	.settings {
 		display: flex;
 		justify-content: center;
-		height: 100vh;
 		width: 100%;
+		padding: clamp(16px, 5vw, 24px);
 	}
 
 	.settings-content {
-		width: 50vw;
-		height: 50%;
-		margin-top: 50px;
+		width: 100%;
+		max-width: 1100px;
+		margin-top: 80px;
+		display: flex;
+		flex-direction: column;
+		gap: clamp(24px, 4vw, 50px);
+	}
+
+	.settings-content > div {
 		display: flex;
 		flex-direction: column;
 		gap: 50px;
 	}
 
-	.settings-content > div {
-		display: flex;
-		flex-direction: row;
-		gap: 50px;
+	@media (min-width: 960px) {
+		.settings-content > div {
+			flex-direction: row;
+		}
+	}
+
+	@media (max-width: 639px) {
+		.settings-content {
+			margin-top: 60px;
+		}
+
+		.settings-content-nav,
+		.settings-content-page {
+			width: 100%;
+		}
+
+		.settings-content-nav {
+			padding: 16px;
+		}
+
+		.settings-content-page {
+			padding: 16px;
+			border-radius: 14px;
+		}
+
+		.settings-content-page > form > input[type="submit"] {
+			width: 100%;
+		}
 	}
 
 	.settings-content-nav {

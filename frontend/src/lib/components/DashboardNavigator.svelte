@@ -4,6 +4,7 @@
 		Book,
 		Home,
 		Library,
+		Menu,
 		Settings,
 		ShoppingBag,
 		ShoppingCart,
@@ -62,7 +63,69 @@
 	</nav>
 </div>
 
+<div class="dashboard-mobile-bar">
+	<button
+		class="menu-toggle"
+		onclick={toggleMobileNav}
+		aria-label={mobileNavOpen ? "Schließen" : "Menü"}
+	>
+		{#if mobileNavOpen}
+			<X size={24} />
+		{:else}
+			<Menu size={24} />
+		{/if}
+	</button>
+	<span>Dashboard</span>
+</div>
+
+{#if mobileNavOpen}
+	<div class="drawer-overlay" onclick={closeMobileNav}></div>
+{/if}
+
 <style>
+	.dashboard-mobile-bar {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 60px;
+		padding: 0 16px;
+		background-color: white;
+		border-bottom: 1px solid var(--border);
+		z-index: 60;
+		align-items: center;
+		display: flex;
+		gap: 12px;
+	}
+
+	.menu-toggle {
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 10px;
+		color: var(--text);
+		border-radius: 8px;
+		transition:
+			background-color 0.2s ease,
+			color 0.2s ease;
+	}
+
+	.menu-toggle:hover {
+		background-color: var(--accent-light);
+		color: var(--accent);
+	}
+
+	.drawer-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: rgba(0, 0, 0, 0.35);
+		z-index: 50;
+	}
+
 	.navigator {
 		display: none;
 		position: fixed;
@@ -84,22 +147,31 @@
 
 	/* Mobile Navigation Drawer */
 	@media (max-width: 1023px) {
+		.dashboard-mobile-bar {
+			display: flex;
+		}
+
 		.navigator {
 			display: flex;
 			flex-direction: column;
 			position: fixed;
 			left: -100%;
 			top: 0;
-			width: 250px;
+			width: min(280px, 80vw);
 			height: 100vh;
 			background-color: whitesmoke;
 			padding: 0;
 			transition: left 0.3s ease;
 			border-right: 1px solid var(--border);
+			z-index: 55;
 		}
 
 		.navigator.open {
 			left: 0;
+		}
+
+		.navigator nav {
+			padding-top: 80px;
 		}
 	}
 
