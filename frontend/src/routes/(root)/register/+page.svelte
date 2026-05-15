@@ -159,97 +159,211 @@
 		justify-content: center;
 		align-items: center;
 		width: 100%;
-		margin: 50px 0;
+		min-height: auto;
+		padding: clamp(16px, 5vw, 50px);
 	}
 
 	.register-content {
 		display: flex;
 		flex-direction: column;
-		width: 50vw;
+		width: 100%;
+		max-width: 800px;
+	}
+
+	.register-content h2 {
+		font-size: clamp(1.5rem, 4vw, 2rem);
+		text-align: center;
+		margin-bottom: 32px;
+		color: var(--text);
 	}
 
 	.register-content a {
-		color: black;
-		margin-top: 20px;
+		color: var(--accent);
+		margin-top: clamp(16px, 3vw, 20px);
+		text-align: center;
+		text-decoration: none;
+		font-size: clamp(0.9rem, 1.5vw, 1rem);
+		transition: color 0.2s ease;
+	}
+
+	.register-content a:hover {
+		color: var(--accent-hover);
 	}
 
 	.register-box {
-		margin-top: 50px;
+		margin-top: clamp(32px, 5vw, 50px);
 		display: flex;
 		flex-direction: column;
+		padding: clamp(16px, 3vw, 24px);
+		background-color: var(--bg-light);
+		border-radius: 8px;
 	}
 
 	.register-box header {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-		border-bottom: 1px solid orange;
-		margin-bottom: 25px;
-		padding-bottom: 10px;
+		align-items: center;
+		border-bottom: 2px solid var(--accent);
+		margin-bottom: clamp(16px, 3vw, 25px);
+		padding-bottom: 12px;
 	}
 
 	.register-box header h3 {
 		text-transform: uppercase;
+		font-size: clamp(0.95rem, 2vw, 1.1rem);
+		font-weight: 700;
+		color: var(--text);
+		margin: 0;
 	}
 
-	.register-box div {
+	.register-box > div {
 		display: flex;
 		flex-direction: column;
-		gap: 25px;
+		gap: clamp(16px, 3vw, 25px);
 	}
 
-	.register-box div > div {
+	.register-box > div > div {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.register-box > div > div > p {
+		margin: 0;
+		font-size: clamp(0.9rem, 1.5vw, 1rem);
+		font-weight: 500;
+		color: var(--text);
+	}
+
+	/* Radio button groups */
+	.register-box > div > div > div {
 		display: flex;
 		flex-direction: row;
-		justify-content: space-between;
+		gap: clamp(16px, 3vw, 24px);
+		flex-wrap: wrap;
+	}
+
+	.register-box > div > div > div > div {
+		display: flex;
+		flex-direction: row;
 		align-items: center;
-		height: 25px;
+		gap: 8px;
 	}
 
-	.register-box div > div {
-		display: flex;
-		flex-direction: row;
-		gap: 5px;
+	.register-box > div > div input[type="radio"],
+	.register-box > div > div input[type="checkbox"] {
+		cursor: pointer;
+		width: 18px;
+		height: 18px;
+		accent-color: var(--accent);
 	}
 
-	.register-box div > div input {
-		padding: 10px;
-		background-color: whitesmoke;
-		border: 1px solid lightgray;
-		width: 50%;
+	.register-box > div > div label {
+		cursor: pointer;
+		font-size: clamp(0.9rem, 1.5vw, 1rem);
+		user-select: none;
+	}
+
+	/* Input fields */
+	.register-box input[type="text"],
+	.register-box input[type="email"],
+	.register-box input[type="password"],
+	.register-box input[type="tel"],
+	.register-box select {
+		padding: clamp(10px, 2vw, 14px);
+		background-color: white;
+		border: 2px solid var(--border);
 		outline: none;
+		border-radius: 6px;
+		font-size: clamp(0.95rem, 1.5vw, 1rem);
+		font-family: inherit;
+		transition:
+			border-color 0.2s ease,
+			box-shadow 0.2s ease;
+		touch-action: manipulation;
+		-webkit-appearance: none;
+		appearance: none;
 	}
 
-	.register-box div > div input[type="radio"] {
-		width: auto;
-		padding: 5px;
+	.register-box input::placeholder {
+		color: var(--text-light);
 	}
 
-	.register-box div > div select {
-		padding: 10px;
-		background-color: whitesmoke;
-		border: 1px solid lightgray;
-		width: 50%;
-		outline: none;
+	.register-box input:focus,
+	.register-box select:focus {
+		border-color: var(--accent);
+		box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
 	}
 
-	.register-box div > div input[type="text"]:focus,
-	.register-box div > div input[type="email"]:focus {
-		border-color: orange;
-		box-shadow: 1px 1px 5px rgba(255, 165, 0, 0.5);
+	/* Postal code and city row */
+	.postal-city {
+		display: grid;
+		grid-template-columns: 1fr 2fr;
+		gap: 12px;
 	}
 
+	@media (max-width: 639px) {
+		.postal-city {
+			grid-template-columns: 1fr;
+		}
+
+		.register-box input[type="text"],
+		.register-box input[type="email"],
+		.register-box input[type="password"],
+		.register-box input[type="tel"],
+		.register-box select {
+			min-height: 44px;
+		}
+	}
+
+	/* Submit button */
 	form input[type="submit"] {
-		padding: 5px;
+		padding: clamp(12px, 2.5vw, 16px);
 		outline: none;
 		border: none;
-		font-size: 1rem;
+		font-size: clamp(0.95rem, 1.5vw, 1rem);
 		width: 100%;
-		border: 1px solid transparent;
-		background-color: orange;
+		background-color: var(--accent);
 		color: white;
-		padding: 10px;
 		cursor: pointer;
-		margin-top: 50px;
+		margin-top: clamp(32px, 5vw, 50px);
+		border-radius: 6px;
+		font-weight: 600;
+		transition:
+			background-color 0.2s ease,
+			transform 0.1s ease;
+	}
+
+	form input[type="submit"]:hover {
+		background-color: var(--accent-hover);
+	}
+
+	form input[type="submit"]:active {
+		transform: scale(0.98);
+	}
+
+	/* Error message */
+	form > p {
+		color: #dc2626;
+		text-align: center;
+		margin-top: 16px;
+		font-size: clamp(0.9rem, 1.5vw, 1rem);
+	}
+
+	/* Mobile optimizations */
+	@media (max-width: 639px) {
+		form input[type="submit"] {
+			min-height: 48px;
+		}
+
+		.register-box {
+			padding: 12px;
+		}
+
+		.register-box > div > div > div {
+			flex-direction: column;
+			gap: 12px;
+		}
 	}
 </style>

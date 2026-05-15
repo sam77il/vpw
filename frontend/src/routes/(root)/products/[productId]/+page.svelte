@@ -193,41 +193,8 @@
 	}
 
 	.product-notfound p {
-		font-size: 1.5rem;
+		font-size: clamp(1.2rem, 3vw, 1.5rem);
 		font-weight: bolder;
-	}
-
-	.product-details-aluverbundplatte header {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-	}
-
-	.product-details-aluverbundplatte-zuschnitt {
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-start;
-		align-items: center;
-		gap: 5px;
-	}
-
-	.product-details-aluverbundplatte-content {
-		display: flex;
-		flex-direction: column;
-		gap: 5px;
-	}
-
-	.product-details-aluverbundplatte-size {
-		display: flex;
-		flex-direction: column;
-		padding: 5px;
-		border: 1px solid black;
-	}
-
-	.product-details-aluverbundplatte-size textarea {
-		resize: none;
-		height: 75px;
-		padding: 5px;
 	}
 
 	.product {
@@ -235,95 +202,266 @@
 		justify-content: center;
 		align-items: center;
 		width: 100%;
-		margin-top: 50px;
+		padding: clamp(16px, 5vw, 50px);
+		min-height: calc(100vh - 120px);
 	}
 
 	.product-content {
-		max-width: 50vw;
+		max-width: 100%;
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		gap: 50px;
+		gap: clamp(32px, 5vw, 50px);
 	}
 
 	.product-top {
 		display: flex;
-		flex-direction: row;
-		gap: 50px;
+		flex-direction: column;
+		gap: clamp(24px, 5vw, 50px);
 		width: 100%;
+	}
+
+	@media (min-width: 768px) {
+		.product-top {
+			flex-direction: row;
+		}
+	}
+
+	.product-image {
+		flex: 0 0 auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.product-image img {
-		width: 500px;
+		width: 100%;
+		max-width: 500px;
+		height: auto;
+		object-fit: contain;
 	}
 
 	.product-details {
+		flex: 1;
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		gap: 20px;
-		background-color: whitesmoke;
-		padding: 20px;
+		gap: clamp(16px, 3vw, 20px);
+		background-color: var(--bg-light);
+		padding: clamp(16px, 4vw, 24px);
+		border-radius: 8px;
 	}
 
 	.product-details h2 {
-		font-size: 2rem;
-		font-weight: bolder;
+		font-size: clamp(1.5rem, 4vw, 2rem);
+		font-weight: bold;
+		color: var(--text);
+		margin: 0;
 	}
 
 	.product-details h3 {
-		font-size: 2rem;
+		font-size: clamp(1.3rem, 3vw, 2rem);
+		color: var(--accent);
+		margin: 0;
 	}
 
 	.smallprice {
-		color: gray;
-		font-size: 0.7rem;
+		color: var(--text-light);
+		font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+		margin: 0;
 	}
 
+	/* Product configuration sections */
+	.product-details-aluverbundplatte {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		padding: clamp(12px, 2vw, 16px);
+		background-color: white;
+		border-radius: 6px;
+		border: 1px solid var(--border);
+	}
+
+	.product-details-aluverbundplatte header {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 8px;
+	}
+
+	.product-details-aluverbundplatte header h4 {
+		font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+		font-weight: 600;
+		color: var(--text);
+		margin: 0;
+	}
+
+	.product-details-aluverbundplatte-content {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.product-details-aluverbundplatte-zuschnitt,
+	.product-details-aluverbundplatte-typ,
+	.product-details-aluverbundplatte-color {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.product-details-aluverbundplatte input[type="radio"] {
+		cursor: pointer;
+		width: 18px;
+		height: 18px;
+		accent-color: var(--accent);
+	}
+
+	.product-details-aluverbundplatte label {
+		cursor: pointer;
+		font-size: clamp(0.9rem, 1.5vw, 1rem);
+		user-select: none;
+	}
+
+	.product-details-aluverbundplatte-size {
+		display: flex;
+		flex-direction: column;
+		padding: clamp(12px, 2vw, 16px);
+		border: 2px solid var(--border);
+		border-radius: 6px;
+		background-color: white;
+		gap: 8px;
+	}
+
+	.product-details-aluverbundplatte-size p {
+		margin: 0;
+		font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+		color: var(--text-light);
+	}
+
+	.product-details-aluverbundplatte-size textarea {
+		resize: vertical;
+		min-height: clamp(75px, 20vw, 120px);
+		padding: clamp(8px, 1.5vw, 12px);
+		border: 1px solid var(--border);
+		border-radius: 4px;
+		font-family: inherit;
+		font-size: clamp(0.9rem, 1.5vw, 1rem);
+		outline: none;
+		transition: border-color 0.2s ease;
+	}
+
+	.product-details-aluverbundplatte-size textarea:focus {
+		border-color: var(--accent);
+		box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+	}
+
+	/* Quantity controls */
 	.product-detail-amount {
 		display: flex;
 		flex-direction: row;
+		gap: 0;
+		align-items: center;
+	}
+
+	.product-detail-amount button {
+		background-color: var(--accent);
+		border: none;
+		outline: none;
+		padding: clamp(8px, 2vw, 12px);
+		cursor: pointer;
+		color: white;
+		font-size: clamp(1rem, 2vw, 1.2rem);
+		font-weight: bold;
+		width: clamp(40px, 10vw, 50px);
+		min-height: 44px;
+		transition: background-color 0.2s ease;
+	}
+
+	.product-detail-amount button:hover {
+		background-color: var(--accent-hover);
+	}
+
+	.product-detail-amount button:first-child {
+		border-top-left-radius: 6px;
+		border-bottom-left-radius: 6px;
+	}
+
+	.product-detail-amount button:last-child {
+		border-top-right-radius: 6px;
+		border-bottom-right-radius: 6px;
 	}
 
 	.product-detail-amount input {
 		border: none;
 		border-radius: 0;
 		outline: none;
-		background-color: rgb(235, 235, 235);
-		padding: 10px;
+		background-color: white;
+		padding: clamp(8px, 2vw, 12px);
 		text-align: center;
-		width: 150px;
-		font-size: 1.2rem;
+		flex: 1;
+		min-width: 50px;
+		font-size: clamp(0.95rem, 1.5vw, 1rem);
+		border-top: 1px solid var(--border);
+		border-bottom: 1px solid var(--border);
+		-webkit-appearance: none;
+		appearance: none;
 	}
 
-	.product-detail-amount button {
-		background-color: orange;
-		border: none;
-		outline: none;
-		padding: 10px;
-		cursor: pointer;
-		color: white;
-		font-size: 1.5rem;
+	.product-detail-amount input:focus {
+		outline: 2px solid var(--accent);
+		outline-offset: -2px;
 	}
 
-	.product-detail-amount button:first-child {
-		border-top-left-radius: 5px;
-		border-bottom-left-radius: 5px;
-	}
-
-	.product-detail-amount button:last-child {
-		border-top-right-radius: 5px;
-		border-bottom-right-radius: 5px;
-	}
-
+	/* Add to cart button */
 	.button {
-		background-color: orange;
-		padding: 10px 20px;
-		font-size: 1rem;
+		background-color: var(--accent);
+		padding: clamp(12px, 2.5vw, 16px) clamp(16px, 3vw, 24px);
+		font-size: clamp(0.95rem, 1.5vw, 1rem);
 		border: none;
 		outline: none;
 		color: white;
-		border-radius: 5px;
+		border-radius: 6px;
 		cursor: pointer;
+		font-weight: 600;
+		width: 100%;
+		min-height: 48px;
+		transition:
+			background-color 0.2s ease,
+			transform 0.1s ease;
+	}
+
+	.button:hover {
+		background-color: var(--accent-hover);
+	}
+
+	.button:active {
+		transform: scale(0.98);
+	}
+
+	/* Result message */
+	.product-details p {
+		margin: 0;
+		text-align: center;
+		padding: 8px;
+		border-radius: 4px;
+	}
+
+	.product-details p:not(.smallprice) {
+		background-color: var(--accent-light);
+		color: var(--accent);
+		font-weight: 500;
+	}
+
+	@media (max-width: 639px) {
+		.product-image {
+			max-height: 300px;
+		}
+
+		.product-details {
+			min-height: auto;
+		}
 	}
 </style>

@@ -3,9 +3,134 @@
 	src: url("/fonts/Inter.ttf"), format("ttf");
 }
 
+/* CSS Variables */
+:root {
+	/* Colors */
+	--accent: #f97316;
+	--accent-hover: #ea580c;
+	--accent-light: #fff7ed;
+	--accent-border: #fdba74;
+	--text: #18181b;
+	--text-light: #52525b;
+	--bg-light: #f8fafc;
+	--border: #e4e4e7;
+
+	/* Breakpoints */
+	--mobile: 640px;
+	--tablet: 1024px;
+}
+
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 	font-family: "Inter", sans-serif;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	background-color: #ffffff;
+	color: var(--text);
+	overflow-x: hidden;
+}
+
+/* Responsive Typography */
+h1 {
+	font-size: clamp(1.8rem, 5vw, 5rem);
+	line-height: 1.2;
+	font-weight: 900;
+	letter-spacing: -0.04em;
+}
+
+h2 {
+	font-size: clamp(1.5rem, 4vw, 3.5rem);
+	line-height: 1.1;
+	font-weight: 900;
+	letter-spacing: -0.03em;
+}
+
+h3 {
+	font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+	font-weight: 700;
+}
+
+p {
+	font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+	line-height: 1.6;
+	color: var(--text-light);
+}
+
+/* Responsive input styling */
+input,
+button,
+select,
+textarea {
+	font-size: 16px; /* Prevents zoom on mobile */
+	font-family: inherit;
+}
+
+/* Mobile-first responsive utilities */
+@media (max-width: 639px) {
+	body {
+		overflow-x: hidden;
+		font-size: 16px;
+	}
+
+	h1 {
+		font-size: clamp(1.5rem, 6vw, 2.5rem);
+	}
+
+	h2 {
+		font-size: clamp(1.3rem, 5vw, 2rem);
+	}
+
+	p {
+		font-size: clamp(0.9rem, 2vw, 1rem);
+	}
+
+	/* Ensure touch targets are at least 44x44px */
+	button,
+	a[role="button"],
+	input[type="button"],
+	input[type="submit"],
+	input[type="checkbox"],
+	input[type="radio"] {
+		min-height: 44px;
+		min-width: 44px;
+	}
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+	/* Tablet styles */
+}
+
+@media (min-width: 1024px) {
+	/* Desktop styles */
+}
+
+/* Prevent layout shift on horizontal scroll */
+html,
+body {
+	width: 100%;
+	max-width: 100%;
+}
+
+/* Smooth interactions */
+* {
+	-webkit-tap-highlight-color: transparent;
+}
+
+/* Print styles */
+@media print {
+	body {
+		background: white;
+	}
+
+	button,
+	a {
+		display: none;
+	}
 }
