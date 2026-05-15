@@ -4,6 +4,7 @@
 	import { resolve } from "$app/paths";
 	import { X } from "@lucide/svelte";
 	const { data, form } = $props();
+	import { PUBLIC_FRONTEND_URL } from "$env/static/public";
 
 	let creating = $state(false);
 	let categories = $state([]);
@@ -11,7 +12,7 @@
 	$effect(() => {
 		if (creating) {
 			async function loadCategories() {
-				const res = await fetch("/api/admin/categories");
+				const res = await fetch(`${PUBLIC_FRONTEND_URL}/sapi/admin/categories`);
 				const data = await res.json();
 				if (data.success) {
 					categories = data.categories;

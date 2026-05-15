@@ -1,5 +1,6 @@
 <script>
 	const { data } = $props();
+	import { PUBLIC_FRONTEND_URL } from "$env/static/public";
 
 	let productAmount = $state(1);
 	let productPrice = $derived(
@@ -44,7 +45,7 @@
 			amount: productAmount
 		};
 
-		const res = await fetch("/api/cart", {
+		const res = await fetch(`${PUBLIC_FRONTEND_URL}/sapi/cart`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"

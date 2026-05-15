@@ -2,11 +2,12 @@
 	import { enhance } from "$app/forms";
 	import { goto } from "$app/navigation";
 	import { resolve } from "$app/paths";
+	import { PUBLIC_FRONTEND_URL } from "$env/static/public";
 	import { ArrowLeft } from "@lucide/svelte";
 	const { data, form } = $props();
 
 	async function deleteCategory() {
-		const res = await fetch("/api/admin/categories/" + data.category.id, {
+		const res = await fetch(`${PUBLIC_FRONTEND_URL}/sapi/admin/categories/` + data.category.id, {
 			method: "DELETE"
 		});
 

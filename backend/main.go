@@ -16,7 +16,7 @@ func main() {
 	defer pool.Close()
 
 	server := sugar.New(sugar.Config{
-		Host: "localhost:8080",
+		Host: "0.0.0.0:8080",
 		Timeout: 15 * time.Second,
 		Database: pool,
 		// Cors: sugar.CorsSettings{

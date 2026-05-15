@@ -3,12 +3,13 @@
 	import { goto } from "$app/navigation";
 	import { AtSign, Key, LogOut, ShoppingBag, Truck, User } from "@lucide/svelte";
 	import { resolve } from "$app/paths";
+	import { PUBLIC_FRONTEND_URL } from "$env/static/public";
 
 	const { data, form } = $props();
 	let currentPage = $state("personal");
 
 	async function logOut() {
-		const res = await fetch("/api/auth/logout", {
+		const res = await fetch(`${PUBLIC_FRONTEND_URL}/sapi/auth/logout`, {
 			method: "POST"
 		});
 

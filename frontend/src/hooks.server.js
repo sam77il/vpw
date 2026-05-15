@@ -1,8 +1,11 @@
+import { API_URL } from "$env/static/private";
+
 export const handle = async ({ event, resolve }) => {
 	const token = event.cookies.get("auth");
 
+	console.log("Api url", API_URL);
 	if (token) {
-		const res = await event.fetch("http://localhost:8080/api/v1/auth/validate", {
+		const res = await event.fetch(`${API_URL}/api/v1/auth/validate`, {
 			headers: {
 				Authorization: `Bearer ${token}`
 			}

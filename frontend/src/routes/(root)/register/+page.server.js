@@ -1,4 +1,5 @@
 import { redirect } from "@sveltejs/kit";
+import { API_URL } from "$env/static/private";
 
 export const actions = {
 	async default({ request, fetch, cookies }) {
@@ -40,7 +41,7 @@ export const actions = {
 			formData.company = false;
 		}
 
-		const res = await fetch("http://localhost:8080/api/v1/auth/register", {
+		const res = await fetch(`${API_URL}/api/v1/auth/register`, {
 			method: "POST",
 			body: JSON.stringify(formData)
 		});

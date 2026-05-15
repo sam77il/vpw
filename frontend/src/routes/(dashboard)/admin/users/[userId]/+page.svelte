@@ -5,9 +5,10 @@
 	import { ArrowLeft } from "@lucide/svelte";
 	const { data, form } = $props();
 	let company = $derived(data.user.company);
+	import { PUBLIC_FRONTEND_URL } from "$env/static/public";
 
 	async function closeAccount() {
-		const res = await fetch("/api/admin/users/" + data.user.id, {
+		const res = await fetch(`${PUBLIC_FRONTEND_URL}/sapi/admin/users/` + data.user.id, {
 			method: "DELETE"
 		});
 

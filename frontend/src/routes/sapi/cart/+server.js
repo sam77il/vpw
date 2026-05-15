@@ -1,10 +1,11 @@
 import { json } from "@sveltejs/kit";
+import { API_URL } from "$env/static/private";
 
 export async function POST({ request, fetch, cookies }) {
 	const authToken = cookies.get("auth");
 	const { id, price, amount, metadata } = await request.json();
 	console.log("Received cart item:", { id, price, amount, metadata });
-	const res = await fetch("http://localhost:8080/api/v1/cart", {
+	const res = await fetch(`${API_URL}/api/v1/cart`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",

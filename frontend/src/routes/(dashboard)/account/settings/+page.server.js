@@ -1,4 +1,5 @@
 import { redirect } from "@sveltejs/kit";
+import { API_URL } from "$env/static/private";
 
 export async function load({ fetch, cookies }) {
 	const token = cookies.get("auth");
@@ -6,7 +7,7 @@ export async function load({ fetch, cookies }) {
 		throw redirect(301, "/");
 	}
 
-	const res = await fetch("http://localhost:8080//api/v1/me", {
+	const res = await fetch(`${API_URL}/api/v1/me`, {
 		method: "GET",
 		headers: {
 			Authorization: `Bearer ${token}`
@@ -27,7 +28,7 @@ export const actions = {
 		const newData = Object.fromEntries(data.entries());
 
 		const token = cookies.get("auth");
-		const res = await fetch("http://localhost:8080/api/v1/me/update", {
+		const res = await fetch(`${API_URL}/api/v1/me/update`, {
 			method: "POST",
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -43,7 +44,7 @@ export const actions = {
 		const newData = Object.fromEntries(data.entries());
 
 		const token = cookies.get("auth");
-		const res = await fetch("http://localhost:8080/api/v1/me/update", {
+		const res = await fetch(`${API_URL}/api/v1/me/update`, {
 			method: "POST",
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -62,7 +63,7 @@ export const actions = {
 			return { success: false, message: "Die neuen Passwörter stimmen nicht überein." };
 		}
 		const token = cookies.get("auth");
-		const res = await fetch("http://localhost:8080/api/v1/me/update", {
+		const res = await fetch(`${API_URL}/api/v1/me/update`, {
 			method: "POST",
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -85,7 +86,7 @@ export const actions = {
 		newData.company = true;
 
 		const token = cookies.get("auth");
-		const res = await fetch("http://localhost:8080/api/v1/me/update", {
+		const res = await fetch(`${API_URL}/api/v1/me/update`, {
 			method: "POST",
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -102,7 +103,7 @@ export const actions = {
 		const newData = Object.fromEntries(data.entries());
 
 		const token = cookies.get("auth");
-		const res = await fetch("http://localhost:8080/api/v1/me/update", {
+		const res = await fetch(`${API_URL}/api/v1/me/update`, {
 			method: "POST",
 			headers: {
 				Authorization: `Bearer ${token}`,

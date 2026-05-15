@@ -1,4 +1,5 @@
 import { redirect } from "@sveltejs/kit";
+import { API_URL } from "$env/static/private";
 
 export async function load({ locals, fetch }) {
 	if (!locals.user) {
@@ -9,7 +10,7 @@ export async function load({ locals, fetch }) {
 		throw redirect(302, "/");
 	}
 
-	const res = await fetch("http://localhost:8080/api/v1/categories");
+	const res = await fetch(`${API_URL}/api/v1/categories`);
 
 	if (!res.ok) {
 		return {
@@ -38,7 +39,7 @@ export const actions = {
 		const formData = await request.formData();
 		const catId = formData.get("id");
 		const catLabel = formData.get("label");
-		const res = await fetch("http://localhost:8080/api/v1/categories", {
+		const res = await fetch(`${API_URL}/api/v1/categories`, {
 			method: "POST",
 			headers: {
 				Authorization: `Bearer ${auth}`,

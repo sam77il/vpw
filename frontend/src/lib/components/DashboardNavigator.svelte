@@ -57,8 +57,4 @@
 	.navigator nav a:hover {
 		color: orange;
 	}
-
-	.selected {
-		color: orange;
-	}
 </style>

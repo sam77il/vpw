@@ -1,5 +1,7 @@
+import { API_URL } from "$env/static/private";
+
 export async function load({ params, fetch }) {
-	const res = await fetch(`http://localhost:8080/api/v1/categories/${params.categoryId}`);
+	const res = await fetch(`${API_URL}/api/v1/categories/${params.categoryId}`);
 	const products = await res.json();
 
 	if (products.success) {

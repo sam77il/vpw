@@ -1,4 +1,6 @@
 import { redirect } from "@sveltejs/kit";
+import { API_URL } from "$env/static/private";
+import { PUBLIC_FRONTEND_URL } from "$env/static/public";
 
 export async function load({ params, locals, fetch }) {
 	if (!locals.user) {
@@ -8,7 +10,7 @@ export async function load({ params, locals, fetch }) {
 		throw redirect(302, "/");
 	}
 
-	const res = await fetch(`http://localhost:8080/api/v1/products/${params.productId}`);
+	const res = await fetch(`${API_URL}/api/v1/products/${params.productId}`);
 
 	if (!res.ok) {
 		return {
@@ -18,7 +20,7 @@ export async function load({ params, locals, fetch }) {
 		};
 	}
 	const data = await res.json();
-	const res2 = await fetch("/api/admin/categories");
+	const res2 = await fetch(`${PUBLIC_FRONTEND_URL}/sapi/admin/categories`);
 	if (!res2.ok) {
 		return {
 			success: false,
@@ -42,7 +44,7 @@ export const actions = {
 		formDataObj.price = Number(formDataObj.price);
 		formDataObj.old_price = Number(formDataObj.old_price);
 		formDataObj.stock = Number(formDataObj.stock);
-		const res = await fetch(`http://localhost:8080/api/v1/products/${formDataObj.id}`, {
+		const res = await fetch(`${API_URL}/api/v1/products/${formDataObj.id}`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",

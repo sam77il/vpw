@@ -1,0 +1,54 @@
+services:
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - frontend
+      - backend
+
+  frontend:
+    build:
+      context: ./frontend
+    restart: unless-stopped
+    environment:
+      API_URL: http://backend:8080
+      PUBLIC_FRONTEND_URL: https://localhost
+    expose:
+      - "3000"
+
+  backend:
+    build:
+      context: ./backend
+    restart: unless-stopped
+    environment:
+      POSTGRES: postgres://postgres:postgres@db:5432/appdb?sslmode=disable
+      JWT_SECRET: tgimd
+    expose:
+      - "8080"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: appdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
+  caddy_data:
+  caddy_config:

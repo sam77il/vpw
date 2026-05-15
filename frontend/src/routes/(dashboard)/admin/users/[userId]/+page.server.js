@@ -1,4 +1,5 @@
 import { redirect } from "@sveltejs/kit";
+import { API_URL } from "$env/static/private";
 
 export async function load({ params, locals, cookies, fetch }) {
 	if (!locals.user) {
@@ -8,7 +9,7 @@ export async function load({ params, locals, cookies, fetch }) {
 		throw redirect(302, "/");
 	}
 	const auth = cookies.get("auth");
-	const res = await fetch(`http://localhost:8080/api/v1/users/${params.userId}`, {
+	const res = await fetch(`${API_URL}/api/v1/users/${params.userId}`, {
 		headers: {
 			Authorization: `Bearer ${auth}`
 		}
@@ -33,7 +34,7 @@ export const actions = {
 		const formData = await request.formData();
 		const formDataObj = Object.fromEntries(formData.entries());
 		formDataObj.company = formDataObj.company === "true" ? true : false;
-		const res = await fetch(`http://localhost:8080/api/v1/users/${formDataObj.id}`, {
+		const res = await fetch(`${API_URL}/api/v1/users/${formDataObj.id}`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",

@@ -4,9 +4,10 @@
 	import { resolve } from "$app/paths";
 	import { ArrowLeft } from "@lucide/svelte";
 	const { data, form } = $props();
+	import { PUBLIC_FRONTEND_URL } from "$env/static/public";
 
 	async function deleteProduct() {
-		const res = await fetch("/api/admin/products/" + data.product.id, {
+		const res = await fetch(`${PUBLIC_FRONTEND_URL}/sapi/admin/products/` + data.product.id, {
 			method: "DELETE"
 		});
 

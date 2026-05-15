@@ -1,6 +1,8 @@
+import { API_URL } from "$env/static/private";
+
 export async function load({ fetch, cookies }) {
 	const auth = cookies.get("auth");
-	const res = await fetch(`http://localhost:8080/api/v1/cart`, {
+	const res = await fetch(`${API_URL}/api/v1/cart`, {
 		method: "GET",
 		headers: {
 			Authorization: `Bearer ${auth}`
