@@ -1,6 +1,7 @@
 <script>
 	import { navigating } from "$app/state";
 	import { onDestroy } from "svelte";
+	import Footer from "$lib/components/Footer.svelte";
 
 	const { children } = $props();
 
@@ -32,6 +33,7 @@
 	</div>
 {/if}
 {@render children()}
+<Footer />
 
 <style>
 	.loading {
