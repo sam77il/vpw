@@ -19,7 +19,6 @@ services:
     restart: unless-stopped
     environment:
       API_URL: http://backend:8080
-      PUBLIC_FRONTEND_URL: https://localhost
     expose:
       - "3000"
 

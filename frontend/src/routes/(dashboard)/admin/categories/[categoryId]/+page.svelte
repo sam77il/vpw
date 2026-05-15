@@ -7,7 +7,7 @@
 	const { data, form } = $props();
 
 	async function deleteCategory() {
-		const res = await fetch(`${PUBLIC_FRONTEND_URL}/sapi/admin/categories/` + data.category.id, {
+		const res = await fetch(`/sapi/admin/categories/` + data.category.id, {
 			method: "DELETE"
 		});
 

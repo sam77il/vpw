@@ -12,7 +12,7 @@
 	$effect(() => {
 		if (creating) {
 			async function loadCategories() {
-				const res = await fetch(`${PUBLIC_FRONTEND_URL}/sapi/admin/categories`);
+				const res = await fetch(`/sapi/admin/categories`);
 				const data = await res.json();
 				if (data.success) {
 					categories = data.categories;

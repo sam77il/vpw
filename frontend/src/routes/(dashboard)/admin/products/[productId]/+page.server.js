@@ -20,7 +20,7 @@ export async function load({ params, locals, fetch }) {
 		};
 	}
 	const data = await res.json();
-	const res2 = await fetch(`${PUBLIC_FRONTEND_URL}/sapi/admin/categories`);
+	const res2 = await fetch(`/sapi/admin/categories`);
 	if (!res2.ok) {
 		return {
 			success: false,

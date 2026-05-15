@@ -5,7 +5,7 @@
 	const { data } = $props();
 
 	function changeAmount(action, cartId) {
-		fetch(`${PUBLIC_FRONTEND_URL}/sapi/cart/${cartId}/amount`, {
+		fetch(`/sapi/cart/${cartId}/amount`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
@@ -25,7 +25,7 @@
 	}
 
 	function deleteCartItem(cartId) {
-		fetch(`${PUBLIC_FRONTEND_URL}/sapi/cart/${cartId}`, {
+		fetch(`/sapi/cart/${cartId}`, {
 			method: "DELETE"
 		})
 			.then((res) => res.json())

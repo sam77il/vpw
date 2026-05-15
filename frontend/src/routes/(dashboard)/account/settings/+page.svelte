@@ -9,7 +9,7 @@
 	let currentPage = $state("personal");
 
 	async function logOut() {
-		const res = await fetch(`${PUBLIC_FRONTEND_URL}/sapi/auth/logout`, {
+		const res = await fetch(`/sapi/auth/logout`, {
 			method: "POST"
 		});
 

@@ -45,7 +45,7 @@
 			amount: productAmount
 		};
 
-		const res = await fetch(`${PUBLIC_FRONTEND_URL}/sapi/cart`, {
+		const res = await fetch(`/sapi/cart`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
