@@ -51,7 +51,6 @@ export const actions = {
 			cookies.set("auth", answer.token, {
 				path: "/",
 				httpOnly: true,
-				secure: true,
 				sameSite: "lax"
 			});
 			throw redirect(303, "/");
