@@ -19,6 +19,8 @@ services:
     restart: unless-stopped
     environment:
       API_URL: http://backend:8080
+      PROTOCOL_HEADER: X-Forwarded-Proto
+      HOST_HEADER: host
     expose:
       - "3000"
 
