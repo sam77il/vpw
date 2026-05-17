@@ -35,7 +35,7 @@ services:
       - "8080"
     depends_on:
       db:
-        condition: service_healty
+        condition: service_healthy
 
   db:
     image: postgres:16
